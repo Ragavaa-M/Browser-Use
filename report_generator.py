@@ -122,7 +122,6 @@ def render_report(json_file_path: str) -> str:
         base64_image = step.get("state", {}).get("screenshot", "N/A")
         actual_result = step.get("result", [{}])[0].get("extracted_content", "N/A")
         
-        # Prepare Action Log
         actions = model_output.get("action", [])
         action_html = "<ul>"
         for action in actions:
@@ -134,7 +133,6 @@ def render_report(json_file_path: str) -> str:
             action_html += "</ul></li>"
         action_html += "</ul>"
 
-        # Append step details to the table content
         report_content += f"""
         <tr>
             <td>{step_index + 1}</td>
