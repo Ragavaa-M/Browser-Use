@@ -18,6 +18,7 @@ try:
             remote_debugging_port=7555
         )
     )
+
 except Exception as e:
     print(f"Error initializing browser: {e}")
     print("Ensure Chrome is running in debug mode on port 9222.")
@@ -93,11 +94,9 @@ async def run_task(task):
         history = await agent.run()
         await browser.close()
         dump = history.model_dump()
-       
-        # Create results directory if it doesn't exist
+
         os.makedirs('results', exist_ok=True)
-       
-        # Save dump to JSON file with task ID and name
+
         filename = f"results/task_{task['title'].replace(' ', '_')}_result.json"
         with open(filename, 'w', encoding='utf-8') as f:
             json.dump(dump, f, indent=2)
@@ -117,26 +116,19 @@ async def main():
     tag = sys.argv[1]
     tasks = load_tasks()
     filtered_tasks = filter_tasks_by_tag(tasks, tag)
-
+    print(filtered_tasks.title())
     if not filtered_tasks:
         print(f"No tasks found with tag: {tag}")
         sys.exit(0)
 
     print(f"Found {len(filtered_tasks)} tasks with tag '{tag}'")
 
-    # Assume run_task and filtered_tasks are defined
-    historyList = []
+    history_dict = {} 
     for task in filtered_tasks:
         history = await run_task(task)
-        historyList.append(history)
-
-    # Render and save the HTML report
-    # html_content = render_report(historyList)
-    # output_path = pathlib.Path("report.html")
-    # with output_path.open("w", encoding="utf-8") as f:
-    #     f.write(html_content)
-    
-    # print(f"✅ Report saved to: {output_path.resolve()}")
+        title = task['title']
+        print(title)
+        history_dict[title] = history
 
 if __name__ == "__main__":
     asyncio.run(main())
