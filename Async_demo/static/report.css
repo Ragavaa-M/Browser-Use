@@ -1,0 +1,295 @@
+html {
+    font-size: 16px;
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 1.25rem;
+}
+h1 {
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+    color: #333;
+}
+h2 {
+    color: #333;
+    font-size: 1.5rem;
+}
+.summary {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f9f9f9;
+}
+.summary h2 {
+    margin: 0;
+    font-size: 1.5rem;
+    color: #333;
+}
+.summary p {
+    margin: 0.5rem 0;
+    font-size: 1rem;
+    color: #666;
+}
+.accordion {
+    margin-bottom: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    overflow: hidden;
+}
+.accordion-header {
+    background-color: #f2f2f2;
+    padding: 1rem;
+    cursor: pointer;
+    font-size: 1.1rem;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+.accordion-header span {
+    font-size: 1rem;
+    color: #666;
+}
+.accordion-content {
+    display: none;
+    padding: 1rem;
+    background-color: #fff;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1.5rem;
+    margin-bottom: 2.5rem;
+}
+th, td {
+    border: 1px solid #ccc;
+    padding: 0.75rem 1rem;
+    text-align: left;
+    vertical-align: top;
+    font-size: 1rem;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+th {
+    background-color: #f2f2f2;
+}
+td{
+    max-width: 15rem;
+}
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+img, img.screenshot {
+    max-width: 15rem;
+    max-height: 10rem;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    border: 1px solid #aaa;
+}
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.8);
+}
+.modal-content {
+    margin: 10% auto;
+    display: block;
+    max-width: 80%;
+    max-height: 80%;
+}
+.modal-content img {
+    width: 60%;
+    max-height: 60vh;
+    object-fit: contain;
+    border-radius: 0.5rem;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+ul.action-log-list {
+padding-left: 1rem;
+font-size: 0.85rem;
+color: #333;
+list-style-type: disc;
+}
+
+ul.action-log-list li {
+    margin-bottom: 0.25rem;
+    line-height: 1.3;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+ul.action-log-list > li > ul {
+    list-style-type: circle;
+    margin-top: 0.25rem;
+    padding-left: 1rem;
+}
+
+ul.action-log-list strong {
+    color: #222;
+    font-weight: 600;
+}
+
+.close {
+    position: absolute;
+    top: 10px;
+    right: 25px;
+    color: white;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Loader overlay styles */
+.loader {
+    display: none;
+    position: fixed;
+    z-index: 9999;
+    left: 0; top: 0; width: 100vw; height: 100vh;
+    background: rgba(255,255,255,0.7);
+    justify-content: center;
+    align-items: center;
+    /* Loader hand/thumb base styles */
+    --skin-color: #E4C560;
+    --tap-speed: 0.6s;
+    --tap-stagger: 0.1s;
+    position: fixed;
+    width: 80px;
+    height: 60px;
+    margin: 0;
+}
+.loader.active {
+    display: flex;
+}
+.loader:before {
+    content: '';
+    display: block;
+    width: 180%;
+    height: 75%;
+    position: absolute;
+    top: 70%;
+    right: 20%;
+    background-color: black;
+    border-radius: 40px 10px;
+    filter: blur(10px);
+    opacity: 0.3;
+}
+.🌴 {
+    display: block;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--skin-color);
+    border-radius: 10px 40px;
+}
+.👍 {
+    position: absolute;
+    width: 120%;
+    height: 38px;
+    background-color: var(--skin-color);
+    bottom: -18%;
+    right: 1%;
+    transform-origin: calc(100% - 20px) 20px;
+    transform: rotate(-20deg);
+    border-radius: 30px 20px 20px 10px;
+    border-bottom: 2px solid rgba(0, 0, 0, 0.1);
+    border-left: 2px solid rgba(0, 0, 0, 0.1);
+}
+.👍:after {
+    width: 20%;
+    height: 60%;
+    content: '';
+    background-color: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    bottom: -8%;
+    left: 5px;
+    border-radius: 60% 10% 10% 30%;
+    border-right: 2px solid rgba(0, 0, 0, 0.05);
+}
+.👉 {
+    position: absolute;
+    width: 80%;
+    height: 35px;
+    background-color: var(--skin-color);
+    bottom: 32%;
+    right: 64%;
+    transform-origin: 100% 20px;
+    animation-duration: calc(var(--tap-speed) * 2);
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
+    transform: rotate(10deg);
+}
+.👉:before {
+    content: '';
+    position: absolute;
+    width: 140%;
+    height: 30px;
+    background-color: var(--skin-color);
+    bottom: 8%;
+    right: 65%;
+    transform-origin: calc(100% - 20px) 20px;
+    transform: rotate(-60deg);
+    border-radius: 20px;
+}
+.👉:nth-child(1) {
+    animation-delay: 0;
+    filter: brightness(70%);
+    animation-name: tap-upper-1;
+}
+.👉:nth-child(2) {
+    animation-delay: var(--tap-stagger);
+    filter: brightness(80%);
+    animation-name: tap-upper-2;
+}
+.👉:nth-child(3) {
+    animation-delay: calc(var(--tap-stagger) * 2);
+    filter: brightness(90%);
+    animation-name: tap-upper-3;
+}
+.👉:nth-child(4) {
+    animation-delay: calc(var(--tap-stagger) * 3);
+    filter: brightness(100%);
+    animation-name: tap-upper-4;
+}
+@keyframes tap-upper-1 {
+    0%, 50%, 100% {
+        transform: rotate(10deg) scale(0.4);
+    }
+    40% {
+        transform: rotate(50deg) scale(0.4);
+    }
+}
+@keyframes tap-upper-2 {
+    0%, 50%, 100% {
+        transform: rotate(10deg) scale(0.6);
+    }
+    40% {
+        transform: rotate(50deg) scale(0.6);
+    }
+}
+@keyframes tap-upper-3 {
+    0%, 50%, 100% {
+        transform: rotate(10deg) scale(0.8);
+    }
+    40% {
+        transform: rotate(50deg) scale(0.8);
+    }
+}
+@keyframes tap-upper-4 {
+    0%, 50%, 100% {
+        transform: rotate(10deg) scale(1);
+    }
+    40% {
+        transform: rotate(50deg) scale(1);
+    }
+}

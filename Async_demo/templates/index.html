@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}" type="text/css">
+    <title>Multi-Agent Task Runner</title>
+    <script>
+        function addTaskField() {
+            const taskDiv = document.getElementById("tasks");
+            const input = document.createElement("input");
+            input.type = "text";
+            input.name = "tasks[]";
+            input.placeholder = "Enter a task";
+            input.className = "task-input";
+            taskDiv.appendChild(input);
+        }
+        // Show loader on form submit
+        window.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            const loader = document.querySelector('.loader');
+            form.addEventListener('submit', function() {
+                loader.classList.add('active');
+            });
+        });
+    </script>
+</head>
+<body>
+    <div class="loader-modal-content">
+        <img src="https://giphy.com/gifs/tobiasrothe-dissensio-xUA7bjPYcgAvwq5CKc" alt="Loading...">
+        <div class="loading-text">Loading, please wait...</div>
+    </div>
+    <form action="/run" method="post">
+        <h1>Multi-Agent Task Runner</h1>
+        <div id="tasks">
+            <input type="text" name="tasks[]" placeholder="Enter a task" class="task-input">
+        </div>
+        <div class="button-row">
+            <button type="button" onclick="addTaskField()">Add Another Task</button>
+            <button type="submit">Run Tasks</button>
+        </div>
+    </form>
+</body>
+</html>

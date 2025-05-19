@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Run Report</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .summary { background: #f4f4f4; padding: 15px; border-radius: 8px; margin-bottom: 30px; }
+        .accordion { margin-bottom: 20px; border: 1px solid #ccc; border-radius: 8px; }
+        .accordion-header { background: #e9e9e9; padding: 12px 18px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-radius: 8px 8px 0 0; }
+        .accordion-content { display: none; padding: 18px; background: #fff; border-radius: 0 0 8px 8px; }
+        table { width: 100%; border-collapse: collapse; margin-bottom: 10px; }
+        th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+        th { background: #f9f9f9; }
+        .screenshot { max-width: 100px; height: auto; cursor: pointer; }
+        .modal { display: none; position: fixed; z-index: 1000; left: 0; top: 0; width: 100%; height: 100%; overflow: auto; background: rgba(0,0,0,0.7); }
+        .modal-content { margin: 5% auto; display: block; max-width: 80%; }
+        .close { color: #fff; position: absolute; top: 30px; right: 50px; font-size: 40px; font-weight: bold; cursor: pointer; }
+        pre { background: #f4f4f4; border-radius: 8px; padding: 8px; }
+    </style>
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Accordion logic
+        document.querySelectorAll(".accordion-header").forEach(header => {
+            header.addEventListener("click", function () {
+                const content = this.nextElementSibling;
+                content.style.display = content.style.display === "block" ? "none" : "block";
+            });
+        });
+        // Modal logic
+        const modal = document.getElementById("screenshotModal");
+        const modalImg = document.getElementById("modalImage");
+        const closeModal = document.getElementsByClassName("close")[0];
+        document.querySelectorAll(".screenshot").forEach(img => {
+            img.addEventListener("click", function () {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+            });
+        });
+        closeModal.onclick = function () {
+            modal.style.display = "none";
+        };
+        window.onclick = function (event) {
+            if (event.target === modal) {
+                modal.style.display = "none";
+            }
+        };
+    });
+    </script>
+</head>
+<body>
+    <h1>Test Run Report</h1>
+
+    <!-- Modal for screenshots -->
+    <div id="screenshotModal" class="modal">
+        <span class="close">&times;</span>
+        <img id="modalImage" class="modal-content">
+    </div>
+
+    {# --- SUMMARY SECTION --- #}
+    {% set overall_duration = 0 %}
+    {% set overall_status = "Success" %}
+    {% for task, raw_result, pretty_result in task_results %}
+        {% set steps = raw_result.history %}
+        {% set tot_duration = 0 %}
+        {% set task_status = "Failure" %}
+        {% if steps and steps[-1].result and steps[-1].result[0].success %}
+            {% set task_status = "Success" %}
+        {% endif %}
+        {% if task_status == "Failure" %}
+            {% set overall_status = "Failure" %}
+        {% endif %}
+        {% for step in steps %}
+            {% set start = step.metadata.step_start_time if step.metadata and step.metadata.step_start_time else 0 %}
+            {% set end = step.metadata.step_end_time if step.metadata and step.metadata.step_end_time else 0 %}
+            {% set tot_duration = tot_duration + (end - start) %}
+        {% endfor %}
+        {% set overall_duration = overall_duration + tot_duration %}
+    {% endfor %}
+    <div class="summary">
+        <h2>Overall Test Run Summary</h2>
+        <p><strong>Status:</strong> {{ overall_status }}</p>
+        <p><strong>Total Duration:</strong> {{ "%.2f"|format(overall_duration) }} seconds</p>
+    </div>
+
+    {# --- TASK ACCORDIONS --- #}
+    {% for task, raw_result, pretty_result in task_results %}
+        {% set steps = raw_result.history %}
+        {% set tot_duration = 0 %}
+        {% set task_status = "Failure" %}
+        {% if steps and steps[-1].result and steps[-1].result[0].success %}
+            {% set task_status = "Success" %}
+        {% endif %}
+        {% for step in steps %}
+            {% set start = step.metadata.step_start_time if step.metadata and step.metadata.step_start_time else 0 %}
+            {% set end = step.metadata.step_end_time if step.metadata and step.metadata.step_end_time else 0 %}
+            {% set tot_duration = tot_duration + (end - start) %}
+        {% endfor %}
+        <div class="accordion">
+            <div class="accordion-header">
+                <div>
+                    <strong>Task:</strong> {{ task }}
+                </div>
+                <div>
+                    <span>Status: {{ task_status }}</span> | <span>Total Duration: {{ "%.2f"|format(tot_duration) }} seconds</span>
+                </div>
+            </div>
+            <div class="accordion-content">
+                <table>
+                    <tr>
+                        <th style="width: 5%;">Step</th>
+                        <th style="width: 25%;">Description</th>
+                        <th style="width: 15%;">Screenshot</th>
+                        <th style="width: 15%;">Expected Result</th>
+                        <th style="width: 15%;">Actual Result</th>
+                        <th style="width: 10%;">Input Tokens</th>
+                        <th style="width: 15%;">Action</th>
+                    </tr>
+                    {% for history in steps %}
+                        {% set i = loop.index0 %}
+                        {% set current_state = history.model_output.current_state if history.model_output and history.model_output.current_state else {} %}
+                        {% set actions = history.model_output.action if history.model_output and history.model_output.action else [] %}
+                        {% set metadata = history.metadata if history.metadata else {} %}
+                        {% set base64_image = history.state.screenshot if history.state and history.state.screenshot else '' %}
+                        {% if i + 1 < steps|length %}
+                            {% set next_step = steps[i + 1] %}
+                            {% if next_step.model_output %}
+                                {% set next_eval = next_step.model_output.current_state.evaluation_previous_goal if next_step.model_output.current_state and next_step.model_output.current_state.evaluation_previous_goal else 'N/A' %}
+                            {% else %}
+                                {% set next_eval = 'N/A' %}
+                            {% endif %}
+                        {% else %}
+                            {% set next_eval = task_status %}
+                        {% endif %}
+                        {% set action_html = "<ul>" %}
+                        {% for action in actions %}
+                            {% for action_type, action_data in action.items() %}
+                                {% set action_html = action_html + "<li><strong>" + action_type + ":</strong><ul>" %}
+                                {% for key, value in action_data.items() %}
+                                    {% set action_html = action_html + "<li><strong>" + key + ":</strong> " + value|string + "</li>" %}
+                                {% endfor %}
+                                {% set action_html = action_html + "</ul></li>" %}
+                            {% endfor %}
+                        {% endfor %}
+                        {% set action_html = action_html + "</ul>" %}
+                        <tr>
+                            <td>Step {{ i + 1 }}</td>
+                            <td>{{ current_state.memory or "" }}</td>
+                            <td>
+                                {% if base64_image %}
+                                    <img src="data:image/png;base64,{{ base64_image }}" class="screenshot" alt="Step {{ i + 1 }} screenshot">
+                                {% endif %}
+                            </td>
+                            <td>{{ current_state.next_goal or "" }}</td>
+                            <td>{{ next_eval }}</td>
+                            <td>{{ metadata.input_tokens or "" }}</td>
+                            <td><pre>{{ action_html | safe }}</pre></td>
+                        </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+    {% endfor %}
+</body>
+</html>
