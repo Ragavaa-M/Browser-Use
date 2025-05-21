@@ -13,7 +13,6 @@
             input.className = "task-input";
             taskDiv.appendChild(input);
         }
-        // Show loader on form submit
         window.addEventListener('DOMContentLoaded', function() {
             const form = document.querySelector('form');
             const loader = document.querySelector('.loader');
@@ -24,9 +23,11 @@
     </script>
 </head>
 <body>
-    <div class="loader-modal-content">
-        <img src="https://giphy.com/gifs/tobiasrothe-dissensio-xUA7bjPYcgAvwq5CKc" alt="Loading...">
-        <div class="loading-text">Loading, please wait...</div>
+    <div class="loader">
+        <div class="loader-modal-content">
+            <img src="{{ url_for('static', filename='Loading.gif') }}" alt="Loading..." >
+            <div class="loading-text">Loading, please wait...</div>
+        </div>
     </div>
     <form action="/run" method="post">
         <h1>Multi-Agent Task Runner</h1>

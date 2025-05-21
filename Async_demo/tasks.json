@@ -1,0 +1,128 @@
+[
+    {
+        "id": 1,
+        "name": "Open GitHub and Search Repo",
+        "task": "Go to https://github.com, use the search bar to look up 'python/cpython', and open the repository page.",
+        "tags": ["github", "search", "automation"]
+    },
+    {
+        "id": 2,
+        "name": "Check Jenkins Build Status",
+        "task": "Visit a public Jenkins demo at https://builds.apache.org, locate the Accumulo job, and read the latest build status and give a summary about it.",
+        "tags": ["jenkins", "build", "automation"]
+    },
+    {
+        "id": 3,
+        "name": "Find Python Docs Example",
+        "task": "Go to geekforgeeks and search for python string section, copy the code examples and paste in a google docs file.",
+        "tags": ["documentation", "python", "automation"]
+    },
+    {
+        "id": 4,
+        "name": "Kaggle Oauth Signin",
+        "task": "Visit kaggle, signin using google oauth and gather information about ongoing competitions and find the competition with higher prize pool and sign out of the account after completing the task",
+        "tags": ["download", "csv", "automation"]
+    },
+    {
+        "id": 5,
+        "name": "Extract Stack Overflow Top Answer",
+        "task": "Search 'python list comprehension' on https://stackoverflow.com, open the top question, and copy the top answer's code block and paste it in a google docs file.",
+        "tags": ["stackoverflow", "extract", "automation"]
+    },
+    {
+        "id": 6,
+        "name": "Web Elements testing",
+        "task": "Go to https://demoqa.com/elements, test all the available elements in the elements tab and give the elements failed to use'.",
+        "tags": ["elements", "demo", "automation"]
+    },
+    {
+        "id": 7,
+        "name": "Submit Registration Form",
+        "task": "Open https://vinothqaacademy.com/demo-site/, fill in all the elements in registration form also scroll to view all the fields, and submit the form.",
+        "tags": ["form", "registration", "automation"]
+    },
+    {
+        "id": 8,
+        "name": "Sign up demo",
+        "task": "visit https://demoqa.com/automation-practice-form and fill in all the fields in the form and submit the form, also check if the form is submitted successfully.",
+        "tags": ["signup", "login", "automation"]
+    },
+    {
+        "id": 9,
+        "name": "add products to cart",
+        "task": "Go to https://www.automationexercise.com/, add any 3 products to cart and confirm the products are added to cart.",
+        "tags": ["cart", "products", "automation"]
+    },
+    {
+        "id": 10,
+        "name": "Draggable element Test",
+        "task": "Visit https://letcode.in/draggable, drag the element inside the dotted area.",
+        "tags": ["draggable", "drop", "automation"]
+    },
+    {
+        "id": 11,
+        "name": "Download file from URL",
+        "task": "visit https://letcode.in/file and download all the three types of files.",
+        "tags": ["download", "file", "automation", "let"]
+    },
+    {
+        "id": 12,
+        "name": "Slider test",
+        "task": "Visit https://letcode.in/slider, follow the instructions in the todo in the page.",
+        "tags": ["slider", "test", "automation", "let"]
+    },
+    {
+        "id": 13,
+        "name": "review writing",
+        "task": "Go to https://www.automationexercise.com/ and go to any product and write a review, if needed to be signed in do a sign in.",
+        "tags": ["review", "product", "automation"]
+    },
+    {
+        "id": 14,
+        "name": "Add and remove elements",
+        "task": "Visit https://the-internet.herokuapp.com/add_remove_elements/, add 10 elements and remove 5 elements.",
+        "tags": ["elements", "add-remove", "automation"]
+    },
+    {
+        "id": 15,
+        "name": "Add item below 50$ to cart",
+        "task": "Go to https://magento.softwaretestingboard.com/, add a travel bag within 50$ price also choose the highly rated bag.",
+        "tags": ["cart", "products", "automation"]
+    },
+    {
+        "id": 16,
+        "name": "Open Google Calendar Public Page",
+        "task": "Visit https://calendar.google.com/calendar/embed?src=en.indian%23holiday%40group.v.calendar.google.com and read all the festivals and holidays in this month.",
+        "tags": ["calendar", "google", "automation"]
+    },
+    {
+        "id": 17,
+        "name": "Web Elements testing",
+        "task": "Visit https://letcode.in/test and test all types of inputs, button, slider and windows and give a summary about the test.",
+        "tags": ["web", "elements", "automation"]
+    },
+    {
+        "id": 18,
+        "name": "Check Package on PyPI",
+        "task": "Open https://pypi.org/project/requests/, and copy the latest version number displayed.",
+        "tags": ["pypi", "package", "automation"]
+    },
+    {
+        "id": 19,
+        "name": "bank manager login",
+        "task": "Visit https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login, login as bank manager and add a customer with name 'John Doe', '12345', 'London' and '1234567890' and verify the customer is added, also proceed with openning account for that new customer",
+        "tags": ["bank", "manager", "automation"]
+    },
+    {
+        "id": 20,
+        "name": "Bank Deposit and Withdrawal",
+        "task": "Visit https://www.globalsqa.com/angularJs-protractor/BankingProject/#/login,login as harry potter and deposit 2000 and withdraw 500 and finally get the account balance and logout.",
+        "tags": ["bank", "deposit", "automation"]
+    },
+    {
+        "id": 21,
+        "name": "Google Search",
+        "task": "Go to https://www.google.com",
+        "tags": ["google", "searching", "automation"]
+    }
+]
